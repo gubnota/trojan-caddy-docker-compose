@@ -1,11 +1,11 @@
-www.yourdomain.com:80 {
+${DOMAIN1}:80 {
     root * /usr/src/trojan
     log {
         output file /usr/src/caddy.log
     }
     file_server
 }
-www.yourdomain.com:443 {
+${DOMAIN1}:443 {
     root * /usr/src/trojan
     log {
         output file /usr/src/caddy.log

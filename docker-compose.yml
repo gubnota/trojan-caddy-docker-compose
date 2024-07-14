@@ -1,24 +1,40 @@
-version: "3"
-
 services:
   trojan:
-    image: teddysun/trojan-go
+    build: ./trojan
     restart: unless-stopped
     ports:
       - "443:443"
-      - "443:443/udp"
     volumes:
       - ./trojan/config:/etc/trojan-go
       - ./ssl:/ssl
+    environment:
+      - DOMAIN=${DOMAIN1}
+      - PASSWORDS=${PASSWORDS}
     depends_on:
       - caddy
 
+  node:
+    build: ./node
+    restart: unless-stopped
+    ports:
+      - "3000:3000"
+    environment:
+      - DOMAIN=${DOMAIN2}
+
   caddy:
-    image: caddy
+    build: ./caddy
+    #    image: caddy
     restart: unless-stopped
     ports:
       - "80:80"
     volumes:
       - ./wwwroot:/usr/src
-      - ./caddy/Caddyfile:/etc/caddy/Caddyfile
+      # - ./caddy/Caddyfile:/etc/caddy/Caddyfile
       - ./ssl:/data/caddy/certificates/acme-v02.api.letsencrypt.org-directory
+    environment:
+      - DOMAIN1=${DOMAIN1}
+      - DOMAIN2=${DOMAIN2}
+volumes:
+  caddy_data:
+  caddy_config:
+  ssl:

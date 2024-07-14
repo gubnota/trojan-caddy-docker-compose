@@ -2,15 +2,15 @@
     "run_type": "server",
     "local_addr": "0.0.0.0",
     "local_port": 443,
-    "remote_addr": "your_domain_name",
+    "remote_addr": "${DOMAIN}",
     "remote_port": 80,
     "password": [
-        "your_password"
-    ],
+        "${PASSWORDS_ARRAY}"
+        ],
     "log_level": 1,
     "ssl": {
-        "cert": "/ssl/your_domain_name/your_domain_name.crt",
-        "key": "/ssl/your_domain_name/your_domain_name.key",
+        "cert": "/ssl/${DOMAIN}/${DOMAIN}.crt",
+        "key": "/ssl/${DOMAIN}/${DOMAIN}.key",
         "key_password": "",
         "cipher_tls13":"TLS_AES_128_GCM_SHA256:TLS_CHACHA20_POLY1305_SHA256:TLS_AES_256_GCM_SHA384",
         "prefer_server_cipher": true,
